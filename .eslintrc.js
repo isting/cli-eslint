@@ -1,25 +1,53 @@
-{
-  // "extends": [ // eslint 使用别人的方法  自己构建的优先级大于本栏目的
-  //   "eslint:recommended",
-  //   "plugin:react/recommended"
-  // ],
+// http://eslint.cn/docs/user-guide/configuring 配置文档
+// module.exports = {}
+module.exports = {
+  // "parser": "Espree", // ESLint 默认使用Espree作为其解析器，你可以在配置文件中指定一个不同的解析器
+  // "ecmaFeatures": {},
+  // "extends": [ "eslint:recommended" ], // eslint 使用别人的方法  自己构建的优先级大于本栏目的
+  // "plugins"  "overrides" 比如需要检查md文件中的js格式  可以在这配置插件 这俩配合  这点还不确认
+  // "plugins"  可以自己配置的插件
+  // "overrides": [ // 对下面规则的技术文件进行单独处理
+  //   {
+  //     "files": ["*-test.js","*.spec.js"],
+  //     "rules": {
+  //       "no-unused-expressions": "off"
+  //     }
+  //   }
+  // ]
+  "root": true, // 不再查找父级
+  "extends": [ "eslint:recommended" ], // 继承
   "env": {
     "node": true,
-    "es6": true
-    // "commonjs": true,
+    "es6": true,
+    "commonjs": true
     // "amd": true,
     // "mocha": true
   },
-
+  "parserOptions": { // JavaScript 语言选项  ESLint 允许你指定你想要支持的 JavaScript 语言选项
+    // ECMAScript 版本
+    "ecmaVersion": 10, // 默认情况下，ESLint 支持 ECMAScript 5 语法
+    "sourceType": "module", // module  script
+    // 想使用的额外的语言特性:
+    "ecmaFeatures": {
+      // 允许在全局作用域下使用 return 语句
+      "globalReturn": true,
+      "impliedStrict": true,  // 启用全局 strict mode (如果 ecmaVersion 是 5 或更高)
+      // 启用 JSX
+      "jsx": false // 支持 JSX 语法并不等同于支持 React
+    }
+  },
+  "globals": { // 全局变量 目前 支持 writable  readonly  还支持 true  false 但不建议使用
+    "__DEV__": "writable",
+    "__YZ__": "readonly" // 代表定义为全局变量 只读 
+  },
   /**
+    *  rules: {   "规则名": [规则值 0 | 1 | 2, 规则配置]   }
     *  "off" 或 0 - 关闭规则
     *  "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出),
     *  "error" 或 2 - 开启规则，使用错误级别的错误：error (当被触发的时候，程序会退出)
   */
-  // rules: {
-  //   "规则名": [规则值, 规则配置]
-  // }
   "rules": {
+
     ////////////////
     // 可能的错误  //
     ////////////////
@@ -27,7 +55,7 @@
     // 禁止条件表达式中出现赋值操作符
     "no-cond-assign": 2,
     // 禁用 console
-    "no-console": 1,
+    "no-console": process.env.NODE_ENV === 'production' ? 2 : 0,
     // 禁止在条件中使用常量表达式
     // if (false) {
     //     doSomethingUnfinished();
@@ -99,9 +127,11 @@
     // 强制 typeof 表达式与有效的字符串进行比较
     // typeof foo === "undefimed" 错误
     "valid-typeof": 2,
+
     //////////////
     // 最佳实践 //
     //////////////
+
     // 定义对象的set存取器属性时，强制定义get
     "accessor-pairs": 2,
     // 强制数组方法的回调函数中有 return 语句
@@ -193,13 +223,7 @@
     // 禁用魔术数字(3.14什么的用常量代替)
     "no-magic-numbers": [
       1,
-      {
-        "ignore": [
-          0,
-          -1,
-          1
-        ]
-      }
+      { "ignore": [ 0, -1, 1 ] }
     ],
     // 禁止使用多个空格
     "no-multi-spaces": 2,
@@ -258,20 +282,16 @@
     // 要求所有的 var 声明出现在它们所在的作用域顶部
     "vars-on-top": 0,
     // 要求 IIFE 使用括号括起来
-    "wrap-iife": [
-      2,
-      "any"
-    ],
+    "wrap-iife": [ 2, "any" ],
     // 要求或禁止 “Yoda” 条件
-    "yoda": [
-      2,
-      "never"
-    ],
+    "yoda": [ 2, "never" ],
     // 要求或禁止使用严格模式指令
     "strict": 0,
+
     //////////////
     //  变量声明 //
     //////////////
+
     // 要求或禁止 var 声明中的初始化(初值)
     "init-declarations": 0,
     // 不允许 catch 子句的参数与外层作用域中的变量同名
@@ -293,18 +313,14 @@
     // 禁止将 undefined 作为标识符
     "no-undefined": 0,
     // 禁止出现未使用过的变量
-    "no-unused-vars": [
-      2,
-      {
-        "vars": "all",
-        "args": "none"
-      }
-    ],
+    "no-unused-vars": [ 2, { "vars": "all", "args": "none" } ],
     // 不允许在变量定义之前使用它们
     "no-use-before-define": 0,
+
     //////////////////////////
     // Node.js and CommonJS //
     //////////////////////////
+
     // require return statements after callbacks
     "callback-return": 0,
     // 要求 require() 出现在顶层模块作用域中
@@ -326,9 +342,11 @@
     "no-process-exit": 0,
     // 禁用同步方法
     "no-sync": 0,
+
     //////////////
     // 风格指南  //
     //////////////
+
     // 指定数组的元素之间要以空格隔开(, 后面)， never参数：[ 之前和 ] 之后不能带空格，always参数：[ 之前和 ] 之后必须带空格
     "array-bracket-spacing": [
       2,
@@ -382,7 +400,7 @@
     "eol-last": 2,
     "indent": [
       2,
-      4,
+      2,
       {
         "SwitchCase": 1
       }
@@ -396,10 +414,8 @@
       }
     ],
     // 强制使用一致的换行风格
-    "linebreak-style": [
-      1,
-      "unix"
-    ],
+    "linebreak-style": ["error", "windows"],
+    // "linebreak-style": [ 1, "unix" ],
     // 要求在注释周围有空行      ( 要求在块级注释之前有一空行)
     "lines-around-comment": [
       1,
@@ -598,9 +614,11 @@
     "unicode-bom": 0,
     //  要求正则表达式被括号括起来
     "wrap-regex": 0,
+
     //////////////
     // ES6.相关 //
     //////////////
+
     // 要求箭头函数体使用大括号
     "arrow-body-style": 2,
     // 要求箭头函数的参数使用圆括号

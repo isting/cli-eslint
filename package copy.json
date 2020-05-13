@@ -8,7 +8,9 @@
   },
   "scripts": {
     "lint": "eslint src/**/*.js",
-    "lint:fix": "eslint src/**/*.js --fix"
+    "lint:fix": "eslint src/**/*.js --fix",
+    "precommit": "npm run test-eslint",
+    "prepush": "npm run test-eslint"
   },
   "devDependencies": {
     "eslint": "^7.0.0",
@@ -16,8 +18,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint",
-      "pre-push": "npm run lint"
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
     }
   }
 }

@@ -14,3 +14,9 @@
 npm install -g yo generator-eslint // ESLint官方为了方便开发者开发插件，提供了使用Yeoman模板(generator-eslint)。
 
 ```
+
+```js
+
+### husky
+git commit -m 'eslint before commit' -n // 忽略本次检查  提交
+```
