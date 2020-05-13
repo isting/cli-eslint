@@ -5,4 +5,12 @@
 - download-git-repo ：在git中下载模板
 - chalk ：粉笔帮我们在控制台中画出各种各样的颜色
 - metalsmith ：读取所有文件,实现模板渲染
-- consolidate ：统一模板引擎 （珠峰架构）
+- consolidate ：统一模板引擎
+
+---
+
+```js
+
+npm install -g yo generator-eslint // ESLint官方为了方便开发者开发插件，提供了使用Yeoman模板(generator-eslint)。
+
+```
