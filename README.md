@@ -18,5 +18,7 @@ npm install -g yo generator-eslint // ESLint官方为了方便开发者开发插
 ```js
 
 ### husky
+
+> "必须使用npm安装eslint 和 husky   window yarn安装拦截钩子"
 git commit -m 'eslint before commit' -n // 忽略本次检查  提交
 ```
