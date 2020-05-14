@@ -4,4 +4,4 @@ __YZ__;
 console.log(__DEV__);
 a;
 b;
-c;
+l;
