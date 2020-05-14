@@ -19,7 +19,8 @@ module.exports = {
   "env": {
     "node": true,
     "es6": true,
-    "commonjs": true
+    "commonjs": true,
+    "browser": true,
     // "amd": true,
     // "mocha": true
   },
@@ -37,8 +38,8 @@ module.exports = {
     }
   },
   "globals": { // 全局变量 目前 支持 writable  readonly  还支持 true  false 但不建议使用
-    "__DEV__": "writable",
-    "__YZ__": "readonly" // 代表定义为全局变量 只读 
+    "__DE__": "writable",
+    "__ENV__": "readonly" // 代表定义为全局变量 只读 
   },
   /**
     *  rules: {   "规则名": [规则值 0 | 1 | 2, 规则配置]   }
